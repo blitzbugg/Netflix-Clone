@@ -1,6 +1,14 @@
 # React + Vite
 
-I am just cloning the Netflix for learning purpose.
+I am just creating a landing page of Netflix.
+Here you can see the trending movies and their trailers.
+I used axios to implement this project.
+
+## Technologies
+
+- React
+- Vite
+- Axios
 
 
 ## Getting Started
