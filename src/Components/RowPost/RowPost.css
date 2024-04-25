@@ -24,10 +24,10 @@
 
 .poster:hover{
     transform: scale(1.1);
-    transition-duration: 0.5s;
+    transition-duration: 0.1s;
 }
 
 .small-poster:hover{
     transform: scale(1.1);
-    transition-duration: 0.5s;
+    transition-duration: 0.1s;
 }
