@@ -9,7 +9,6 @@ function RowPost(props) {
   const [urlId,setUrlId] = useState('')
   useEffect(() => {
     axios.get(props.url).then(Response => {
-      console.log(Response.data.results)
       setMovies(Response.data.results)
     })
   }, [])
@@ -23,7 +22,6 @@ function RowPost(props) {
   };
 
   const handleMovieTrailer = (id)=>{
-    console.log(id)
     axios.get(`/movie/${id}/videos?api_key=${API_KEY}&language=en-US`).then(Response=>{
       if(Response.data.results.length!==0){
         setUrlId(Response.data.results[0])
@@ -39,7 +37,7 @@ function RowPost(props) {
       <h2>{props.title}</h2>
       <div className="posters">
         {movies.map((movie) => (
-          <img onClick={()=>handleMovieTrailer(movie.id)} className={props.isSmall ? 'small-poster' : 'poster'} src={`${imageUrl+movie.backdrop_path}`} alt="poster" />
+          <img key={movie.id} onClick={() => handleMovieTrailer(movie.id)} className={props.isSmall? 'small-poster' : 'poster'} src={`${imageUrl+movie.backdrop_path}`} alt="poster" />
         ))}
       </div>
       { urlId && <YouTube videoId={urlId.key} opts={opts} />}
