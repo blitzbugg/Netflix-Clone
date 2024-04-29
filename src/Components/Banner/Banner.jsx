@@ -3,12 +3,14 @@ import {API_KEY,imageUrl} from '../../constants/constants'
 import axios from '../../axios'
 import './Banner.css'
 function Banner() {
-  const [movie, setMovie] = useState([])
+  const [movie, setMovie] = useState(null)
+  const [loading, setLoading] = useState(true);
         useEffect(() => {
     const intervalId = setInterval(() => {
       axios.get(`trending/all/week?api_key=${API_KEY}&language=en-US`).then((Response)=>{
         const randomIndex = Math.floor(Math.random() * Response.data.results.length)
         setMovie(Response.data.results[randomIndex])
+        setLoading(false);
         console.log(intervalId)
       })
     }, 10000) // Change the banner every 10 seconds
@@ -17,13 +19,19 @@ function Banner() {
     return () => clearInterval(intervalId)
   }, [])  
 
-     
+  if (loading) {
+    return <div className="preloader">
+    <div className="spinner">
+    </div>
+  </div> // Render a preloader if image is loading
+  }
+
   return (
     <div
     style={{backgroundImage:`url(${movie ? imageUrl+movie.backdrop_path : ""})`}}
      className='banner'>
       <div className="content">
-        <h1 className="title">{movie.name || movie.title}</h1>
+        <h1 className="title">{movie ? movie.name || movie.title : ""}</h1>
         <div className="banner-btns">
             <button className="btn">Play</button>
             <button className="btn">My list</button>
